@@ -96,8 +96,6 @@
         /* Конфетти */
         .confetti {
             position: absolute;
-            width: 10px;
-            height: 10px;
             pointer-events: none;
             z-index: 20;
         }
@@ -106,86 +104,50 @@
         .popper {
             position: absolute;
             z-index: 15;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Хлопушки снизу */
-        .popper-bottom {
-            width: 25px;
+        /* Палочка хлопушки */
+        .popper-stick {
+            width: 6px;
             height: 80px;
-            background-color: #ffd700;
-            bottom: 0;
+            background: linear-gradient(to bottom, #8B4513, #A0522D);
+            border-radius: 3px;
         }
 
-        .popper-bottom:before {
-            content: '';
-            position: absolute;
-            width: 35px;
-            height: 35px;
-            background-color: #ff6347;
-            border-radius: 50%;
-            top: -17px;
-            left: -5px;
+        /* Цилиндр хлопушки */
+        .popper-body {
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff0000, #ff6b6b);
+            border-radius: 20px 20px 5px 5px;
+            position: relative;
+            margin-bottom: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Хлопушки сверху */
+        /* Верхняя часть цилиндра */
         .popper-top {
-            width: 25px;
-            height: 80px;
-            background-color: #9370db;
-            top: 0;
-            transform: rotate(180deg);
-        }
-
-        .popper-top:before {
-            content: '';
+            width: 45px;
+            height: 15px;
+            background: linear-gradient(45deg, #ff4757, #ff6b6b);
+            border-radius: 22px 22px 0 0;
             position: absolute;
-            width: 35px;
-            height: 35px;
-            background-color: #ff69b4;
-            border-radius: 50%;
-            top: -17px;
-            left: -5px;
+            top: -8px;
+            left: -2.5px;
         }
 
-        /* Хлопушки слева */
-        .popper-left {
-            width: 80px;
-            height: 25px;
-            background-color: #32cd32;
-            left: 0;
-            transform: rotate(90deg);
-        }
-
-        .popper-left:before {
-            content: '';
+        /* Декоративная полоска на хлопушке */
+        .popper-stripe {
+            width: 30px;
+            height: 8px;
+            background: gold;
+            border-radius: 4px;
             position: absolute;
-            width: 35px;
-            height: 35px;
-            background-color: #ff4500;
-            border-radius: 50%;
-            top: -5px;
-            left: -17px;
-        }
-
-        /* Хлопушки справа */
-        .popper-right {
-            width: 80px;
-            height: 25px;
-            background-color: #1e90ff;
-            right: 0;
-            transform: rotate(-90deg);
-        }
-
-        .popper-right:before {
-            content: '';
-            position: absolute;
-            width: 35px;
-            height: 35px;
-            background-color: #ffd700;
-            border-radius: 50%;
-            top: -5px;
-            left: -17px;
+            top: 15px;
+            left: 5px;
         }
 
         .instructions {
@@ -208,72 +170,72 @@
         }
 
         /* Анимации для выстрела конфетти */
-        @keyframes shootFromBottom {
+        @keyframes shootUp {
             0% { 
-                transform: translateY(0) scale(1);
+                transform: translateY(0) rotate(0deg) scale(0.8);
                 opacity: 1;
             }
-            50% {
-                transform: translateY(-100px) scale(1.2);
+            20% {
+                transform: translateY(-30px) rotate(180deg) scale(1.2);
                 opacity: 1;
             }
             100% { 
-                transform: translateY(calc(-100vh - 100px)) scale(1);
+                transform: translateY(-1000px) rotate(720deg) scale(0.5);
                 opacity: 0;
             }
         }
 
-        @keyframes shootFromTop {
+        @keyframes shootDown {
             0% { 
-                transform: translateY(0) scale(1);
+                transform: translateY(0) rotate(0deg) scale(0.8);
                 opacity: 1;
             }
-            50% {
-                transform: translateY(100px) scale(1.2);
+            20% {
+                transform: translateY(30px) rotate(-180deg) scale(1.2);
                 opacity: 1;
             }
             100% { 
-                transform: translateY(calc(100vh + 100px)) scale(1);
+                transform: translateY(1000px) rotate(-720deg) scale(0.5);
                 opacity: 0;
             }
         }
 
-        @keyframes shootFromLeft {
+        @keyframes shootLeft {
             0% { 
-                transform: translateX(0) scale(1);
+                transform: translateX(0) rotate(0deg) scale(0.8);
                 opacity: 1;
             }
-            50% {
-                transform: translateX(100px) scale(1.2);
+            20% {
+                transform: translateX(-30px) rotate(-180deg) scale(1.2);
                 opacity: 1;
             }
             100% { 
-                transform: translateX(calc(100vw + 100px)) scale(1);
+                transform: translateX(-1000px) rotate(-720deg) scale(0.5);
                 opacity: 0;
             }
         }
 
-        @keyframes shootFromRight {
+        @keyframes shootRight {
             0% { 
-                transform: translateX(0) scale(1);
+                transform: translateX(0) rotate(0deg) scale(0.8);
                 opacity: 1;
             }
-            50% {
-                transform: translateX(-100px) scale(1.2);
+            20% {
+                transform: translateX(30px) rotate(180deg) scale(1.2);
                 opacity: 1;
             }
             100% { 
-                transform: translateX(calc(-100vw - 100px)) scale(1);
+                transform: translateX(1000px) rotate(720deg) scale(0.5);
                 opacity: 0;
             }
         }
 
-        @keyframes popperPop {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.3); }
-            50% { transform: scale(0.9); }
-            75% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        @keyframes popperExplode {
+            0% { transform: scale(1) translateY(0); }
+            25% { transform: scale(1.1) translateY(-5px); }
+            50% { transform: scale(0.95) translateY(2px); }
+            75% { transform: scale(1.05) translateY(-3px); }
+            100% { transform: scale(1) translateY(0); }
         }
 
         /* Адаптивность для мобильных */
@@ -284,49 +246,157 @@
             .btn { font-size: 1.2rem; padding: 16px 35px; }
             .card { padding: 25px 15px; }
             
-            .popper-bottom, .popper-top { 
-                width: 20px; 
-                height: 60px; 
+            .popper-stick { height: 60px; }
+            .popper-body { 
+                width: 35px; 
+                height: 45px; 
             }
-            .popper-left, .popper-right { 
-                width: 60px; 
-                height: 20px; 
+            .popper-top { 
+                width: 40px; 
+                height: 12px; 
+                top: -6px;
             }
-            .popper-bottom:before, .popper-top:before,
-            .popper-left:before, .popper-right:before {
+            .popper-stripe {
                 width: 25px;
-                height: 25px;
+                top: 12px;
             }
         }
     </style>
 </head>
 <body>
     <!-- Хлопушки снизу -->
-    <div class="popper popper-bottom" style="left: 10%;" data-type="bottom"></div>
-    <div class="popper popper-bottom" style="left: 30%;" data-type="bottom"></div>
-    <div class="popper popper-bottom" style="left: 50%;" data-type="bottom"></div>
-    <div class="popper popper-bottom" style="left: 70%;" data-type="bottom"></div>
-    <div class="popper popper-bottom" style="left: 90%;" data-type="bottom"></div>
+    <div class="popper" style="left: 10%; bottom: 20px;" data-type="bottom">
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+        <div class="popper-stick"></div>
+    </div>
+    <div class="popper" style="left: 30%; bottom: 20px;" data-type="bottom">
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+        <div class="popper-stick"></div>
+    </div>
+    <div class="popper" style="left: 50%; bottom: 20px;" data-type="bottom">
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+        <div class="popper-stick"></div>
+    </div>
+    <div class="popper" style="left: 70%; bottom: 20px;" data-type="bottom">
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+        <div class="popper-stick"></div>
+    </div>
+    <div class="popper" style="left: 90%; bottom: 20px;" data-type="bottom">
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+        <div class="popper-stick"></div>
+    </div>
 
     <!-- Хлопушки сверху -->
-    <div class="popper popper-top" style="left: 15%;" data-type="top"></div>
-    <div class="popper popper-top" style="left: 35%;" data-type="top"></div>
-    <div class="popper popper-top" style="left: 55%;" data-type="top"></div>
-    <div class="popper popper-top" style="left: 75%;" data-type="top"></div>
-    <div class="popper popper-top" style="left: 95%;" data-type="top"></div>
+    <div class="popper" style="left: 15%; top: 20px;" data-type="top">
+        <div class="popper-stick"></div>
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+    </div>
+    <div class="popper" style="left: 35%; top: 20px;" data-type="top">
+        <div class="popper-stick"></div>
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+    </div>
+    <div class="popper" style="left: 55%; top: 20px;" data-type="top">
+        <div class="popper-stick"></div>
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+    </div>
+    <div class="popper" style="left: 75%; top: 20px;" data-type="top">
+        <div class="popper-stick"></div>
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+    </div>
+    <div class="popper" style="left: 95%; top: 20px;" data-type="top">
+        <div class="popper-stick"></div>
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+    </div>
 
     <!-- Хлопушки слева -->
-    <div class="popper popper-left" style="top: 20%;" data-type="left"></div>
-    <div class="popper popper-left" style="top: 40%;" data-type="left"></div>
-    <div class="popper popper-left" style="top: 60%;" data-type="left"></div>
-    <div class="popper popper-left" style="top: 80%;" data-type="left"></div>
+    <div class="popper" style="top: 25%; left: 20px;" data-type="left">
+        <div class="popper-stick" style="transform: rotate(90deg); margin: 0 10px;"></div>
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+    </div>
+    <div class="popper" style="top: 45%; left: 20px;" data-type="left">
+        <div class="popper-stick" style="transform: rotate(90deg); margin: 0 10px;"></div>
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+    </div>
+    <div class="popper" style="top: 65%; left: 20px;" data-type="left">
+        <div class="popper-stick" style="transform: rotate(90deg); margin: 0 10px;"></div>
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+    </div>
+    <div class="popper" style="top: 85%; left: 20px;" data-type="left">
+        <div class="popper-stick" style="transform: rotate(90deg); margin: 0 10px;"></div>
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+    </div>
 
     <!-- Хлопушки справа -->
-    <div class="popper popper-right" style="top: 15%;" data-type="right"></div>
-    <div class="popper popper-right" style="top: 35%;" data-type="right"></div>
-    <div class="popper popper-right" style="top: 55%;" data-type="right"></div>
-    <div class="popper popper-right" style="top: 75%;" data-type="right"></div>
-    <div class="popper popper-right" style="top: 95%;" data-type="right"></div>
+    <div class="popper" style="top: 20%; right: 20px;" data-type="right">
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+        <div class="popper-stick" style="transform: rotate(-90deg); margin: 0 10px;"></div>
+    </div>
+    <div class="popper" style="top: 40%; right: 20px;" data-type="right">
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+        <div class="popper-stick" style="transform: rotate(-90deg); margin: 0 10px;"></div>
+    </div>
+    <div class="popper" style="top: 60%; right: 20px;" data-type="right">
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+        <div class="popper-stick" style="transform: rotate(-90deg); margin: 0 10px;"></div>
+    </div>
+    <div class="popper" style="top: 80%; right: 20px;" data-type="right">
+        <div class="popper-body">
+            <div class="popper-top"></div>
+            <div class="popper-stripe"></div>
+        </div>
+        <div class="popper-stick" style="transform: rotate(-90deg); margin: 0 10px;"></div>
+    </div>
 
     <div class="container">
         <div class="card fade-in">
@@ -343,8 +413,7 @@
         </div>
         
         <div class="instructions">
-            <p>Нажмите кнопку "Открыть открытку", чтобы увидеть поздравление!</p>
-            <p><small>Музыка может не играть автоматически на некоторых устройствах</small></p>
+            <p>Нажмите кнопку "Открыть открытку", чтобы увидеть поздравление и запустить хлопушки!</p>
         </div>
     </div>
 
@@ -377,72 +446,64 @@
             
             poppers.forEach((popper, index) => {
                 // Анимация самой хлопушки
-                popper.style.animation = 'popperPop 0.5s ease-in-out';
+                const popperBody = popper.querySelector('.popper-body');
+                popperBody.style.animation = 'popperExplode 0.8s ease-in-out';
                 
                 // Запускаем конфетти с задержкой для каждой хлопушки
                 setTimeout(() => {
                     const type = popper.dataset.type;
                     shootConfettiFromPopper(popper, type, colors);
-                }, index * 100);
+                }, index * 150);
                 
                 // Убираем анимацию хлопушки
                 setTimeout(() => {
-                    popper.style.animation = '';
-                }, 500);
+                    popperBody.style.animation = '';
+                }, 800);
             });
         }
 
         function shootConfettiFromPopper(popper, type, colors) {
-            const rect = popper.getBoundingClientRect();
-            const particlesCount = 15;
+            const popperBody = popper.querySelector('.popper-body');
+            const rect = popperBody.getBoundingClientRect();
+            const particlesCount = 20;
             
             for (let i = 0; i < particlesCount; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 
                 const color = colors[Math.floor(Math.random() * colors.length)];
-                const size = Math.random() * 8 + 6;
+                const size = Math.random() * 10 + 5;
                 const duration = Math.random() * 2 + 1.5;
-                const delay = Math.random() * 0.5;
+                const delay = Math.random() * 0.3;
                 
                 confetti.style.width = `${size}px`;
                 confetti.style.height = `${size}px`;
                 confetti.style.backgroundColor = color;
-                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
                 
                 // Позиционируем конфетти на хлопушке
-                let startX, startY;
+                let startX = rect.left + rect.width / 2;
+                let startY = rect.top + rect.height / 2;
+                let animationName = '';
                 
                 switch(type) {
                     case 'bottom':
-                        startX = rect.left + rect.width / 2;
-                        startY = rect.top;
-                        confetti.style.left = `${startX}px`;
-                        confetti.style.top = `${startY}px`;
-                        confetti.style.animation = `shootFromBottom ${duration}s ease-out ${delay}s forwards`;
+                        animationName = 'shootUp';
                         break;
                     case 'top':
-                        startX = rect.left + rect.width / 2;
-                        startY = rect.bottom;
-                        confetti.style.left = `${startX}px`;
-                        confetti.style.top = `${startY}px`;
-                        confetti.style.animation = `shootFromTop ${duration}s ease-out ${delay}s forwards`;
+                        animationName = 'shootDown';
                         break;
                     case 'left':
-                        startX = rect.right;
-                        startY = rect.top + rect.height / 2;
-                        confetti.style.left = `${startX}px`;
-                        confetti.style.top = `${startY}px`;
-                        confetti.style.animation = `shootFromLeft ${duration}s ease-out ${delay}s forwards`;
+                        animationName = 'shootRight';
                         break;
                     case 'right':
-                        startX = rect.left;
-                        startY = rect.top + rect.height / 2;
-                        confetti.style.left = `${startX}px`;
-                        confetti.style.top = `${startY}px`;
-                        confetti.style.animation = `shootFromRight ${duration}s ease-out ${delay}s forwards`;
+                        animationName = 'shootLeft';
                         break;
                 }
+                
+                confetti.style.left = `${startX}px`;
+                confetti.style.top = `${startY}px`;
+                confetti.style.animation = `${animationName} ${duration}s ease-out ${delay}s forwards`;
                 
                 document.body.appendChild(confetti);
                 
@@ -456,88 +517,7 @@
         }
 
         // Добавляем обработчик для тапа по странице (для iOS)
-        document.body.addEventListener('touchstart', function() {
-            // Эта функция помогает разблокировать автовоспроизведение на iOS
-        });
+        document.body.addEventListener('touchstart', function() {});
     </script>
 </body>
-</html>            left: -10px;
-        }
-
-        .popper:nth-child(2) {
-            left: 20%;
-        }
-
-        .popper:nth-child(3) {
-            left: 40%;
-        }
-
-        .popper:nth-child(4) {
-            left: 60%;
-        }
-
-        .popper:nth-child(5) {
-            left: 80%;
-        }
-    </style>
-</head>
-<body>
-    <!-- Хлопушки -->
-    <div class="popper"></div>
-    <div class="popper"></div>
-    <div class="popper"></div>
-    <div class="popper"></div>
-    <div class="popper"></div>
-
-    <div class="card">
-        <h1>С Днём Рождения!</h1>
-        <button id="openBtn" class="btn">Открыть открытку</button>
-        <div id="birthdayMessage" class="hidden message">
-            Дорогая Елена Александровна!<br>
-            Поздравляем Вас с Днём Рождения!<br>
-            Желаем здоровья, счастья и успехов во всём!
-        </div>
-    </div>
-
-    <audio id="birthdaySong" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        Ваш браузер не поддерживает аудио элемент.
-    </audio>
-
-    <script>
-        document.getElementById('openBtn').addEventListener('click', function() {
-            // Воспроизводим песню
-            const song = document.getElementById('birthdaySong');
-            song.play();
-            
-            // Показываем поздравление
-            document.getElementById('birthdayMessage').classList.remove('hidden');
-            
-            // Скрываем кнопку
-            this.classList.add('hidden');
-            
-            // Создаем конфетти
-            createConfetti();
-        });
-
-        function createConfetti() {
-            const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#FFFFFF'];
-            
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                document.body.appendChild(confetti);
-                
-                // Удаляем конфетти после анимации
-                setTimeout(() => {
-                    confetti.remove();
-                }, 7000);
-            }
-        }
-    </script>
-</body>
-  </html>
+</html>
