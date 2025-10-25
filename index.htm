@@ -160,6 +160,14 @@
             max-width: 500px;
         }
 
+        .audio-notice {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -181,21 +189,6 @@
             }
             100% { 
                 transform: translateY(-1000px) rotate(720deg) scale(0.5);
-                opacity: 0;
-            }
-        }
-
-        @keyframes shootDown {
-            0% { 
-                transform: translateY(0) rotate(0deg) scale(0.8);
-                opacity: 1;
-            }
-            20% {
-                transform: translateY(30px) rotate(-180deg) scale(1.2);
-                opacity: 1;
-            }
-            100% { 
-                transform: translateY(1000px) rotate(-720deg) scale(0.5);
                 opacity: 0;
             }
         }
@@ -377,6 +370,9 @@
         
         <div class="instructions">
             <p>Нажмите кнопку "Открыть открытку", чтобы увидеть поздравление и запустить хлопушки!</p>
+            <div class="audio-notice" id="audioNotice">
+                🔇 Музыка может не играть автоматически. Нажмите на страницу и попробуйте снова.
+            </div>
         </div>
     </div>
 
@@ -387,13 +383,27 @@
     </audio>
 
     <script>
+        let audioEnabled = false;
+        
+        // Включаем аудио при первом клике на страницу
+        document.body.addEventListener('click', function() {
+            if (!audioEnabled) {
+                audioEnabled = true;
+                document.getElementById('audioNotice').style.display = 'none';
+                
+                // Пробуем включить аудио заранее
+                const song = document.getElementById('birthdaySong');
+                song.volume = 0.1;
+                song.play().then(() => {
+                    song.pause();
+                    song.currentTime = 0;
+                }).catch(e => {
+                    console.log("Аудио готово к воспроизведению");
+                });
+            }
+        });
+
         document.getElementById('openBtn').addEventListener('click', function() {
-            // Воспроизводим песню Happy Birthday
-            const song = document.getElementById('birthdaySong');
-            song.play().catch(e => {
-                console.log("Для воспроизведения музыки может потребоваться взаимодействие с страницей");
-            });
-            
             // Показываем поздравление
             document.getElementById('birthdayMessage').classList.remove('hidden');
             
@@ -402,7 +412,49 @@
             
             // Запускаем выстрел конфетти из всех хлопушек
             shootConfettiFromAllPoppers();
+            
+            // Пытаемся включить песню
+            playBirthdaySong();
         });
+
+        function playBirthdaySong() {
+            const song = document.getElementById('birthdaySong');
+            song.volume = 0.7;
+            
+            const playPromise = song.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // Песня играет успешно
+                    console.log("Песня играет!");
+                    document.getElementById('audioNotice').style.display = 'none';
+                }).catch(error => {
+                    // Автовоспроизведение заблокировано
+                    console.log("Автовоспроизведение заблокировано");
+                    document.getElementById('audioNotice').style.display = 'block';
+                    
+                    // Показываем кнопку для ручного включения музыки
+                    showMusicButton();
+                });
+            }
+        }
+
+        function showMusicButton() {
+            const musicBtn = document.createElement('button');
+            musicBtn.textContent = '🎵 Включить музыку';
+            musicBtn.className = 'btn';
+            musicBtn.style.marginTop = '10px';
+            musicBtn.style.background = 'linear-gradient(to right, #ff6b6b, #ff8e8e)';
+            
+            musicBtn.addEventListener('click', function() {
+                const song = document.getElementById('birthdaySong');
+                song.play();
+                this.remove();
+                document.getElementById('audioNotice').style.display = 'none';
+            });
+            
+            document.querySelector('.card').appendChild(musicBtn);
+        }
 
         function shootConfettiFromAllPoppers() {
             const poppers = document.querySelectorAll('.popper');
@@ -476,9 +528,6 @@
                 }, (duration + delay) * 1000);
             }
         }
-
-        // Добавляем обработчик для тапа по странице (для iOS)
-        document.body.addEventListener('touchstart', function() {});
     </script>
 </body>
 </html>
