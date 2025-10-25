@@ -103,7 +103,7 @@
         /* Хлопушки */
         .popper {
             position: absolute;
-            z-index: 15;
+            z-index: 5;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -301,43 +301,6 @@
         <div class="popper-stick"></div>
     </div>
 
-    <!-- Хлопушки сверху -->
-    <div class="popper" style="left: 15%; top: 20px;" data-type="top">
-        <div class="popper-stick"></div>
-        <div class="popper-body">
-            <div class="popper-top"></div>
-            <div class="popper-stripe"></div>
-        </div>
-    </div>
-    <div class="popper" style="left: 35%; top: 20px;" data-type="top">
-        <div class="popper-stick"></div>
-        <div class="popper-body">
-            <div class="popper-top"></div>
-            <div class="popper-stripe"></div>
-        </div>
-    </div>
-    <div class="popper" style="left: 55%; top: 20px;" data-type="top">
-        <div class="popper-stick"></div>
-        <div class="popper-body">
-            <div class="popper-top"></div>
-            <div class="popper-stripe"></div>
-        </div>
-    </div>
-    <div class="popper" style="left: 75%; top: 20px;" data-type="top">
-        <div class="popper-stick"></div>
-        <div class="popper-body">
-            <div class="popper-top"></div>
-            <div class="popper-stripe"></div>
-        </div>
-    </div>
-    <div class="popper" style="left: 95%; top: 20px;" data-type="top">
-        <div class="popper-stick"></div>
-        <div class="popper-body">
-            <div class="popper-top"></div>
-            <div class="popper-stripe"></div>
-        </div>
-    </div>
-
     <!-- Хлопушки слева -->
     <div class="popper" style="top: 25%; left: 20px;" data-type="left">
         <div class="popper-stick" style="transform: rotate(90deg); margin: 0 10px;"></div>
@@ -417,14 +380,15 @@
         </div>
     </div>
 
+    <!-- ПЕСНЯ HAPPY BIRTHDAY TO YOU -->
     <audio id="birthdaySong" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
+        <source src="https://www.soundjay.com/misc/sounds/happy-birthday-song.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио элемент.
     </audio>
 
     <script>
         document.getElementById('openBtn').addEventListener('click', function() {
-            // Воспроизводим песню
+            // Воспроизводим песню Happy Birthday
             const song = document.getElementById('birthdaySong');
             song.play().catch(e => {
                 console.log("Для воспроизведения музыки может потребоваться взаимодействие с страницей");
@@ -489,9 +453,6 @@
                 switch(type) {
                     case 'bottom':
                         animationName = 'shootUp';
-                        break;
-                    case 'top':
-                        animationName = 'shootDown';
                         break;
                     case 'left':
                         animationName = 'shootRight';
