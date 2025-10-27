@@ -89,11 +89,6 @@
             transform: translateY(-1px);
         }
 
-        .music-btn {
-            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
-            margin-top: 10px;
-        }
-
         .hidden {
             display: none;
         }
@@ -163,14 +158,6 @@
             border-radius: 10px;
             width: 100%;
             max-width: 500px;
-        }
-
-        .audio-notice {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 10px;
-            font-size: 0.9rem;
         }
 
         @keyframes fadeIn {
@@ -375,26 +362,10 @@
         
         <div class="instructions">
             <p>Нажмите кнопку "Открыть открытку", чтобы увидеть поздравление и запустить хлопушки!</p>
-            <div class="audio-notice" id="audioNotice">
-                🔇 Для включения музыки может потребоваться нажать на кнопку "Включить музыку"
-            </div>
         </div>
     </div>
 
-    <!-- ПЕСНЯ HAPPY BIRTHDAY TO YOU с несколькими источниками -->
-    <audio id="birthdaySong" loop preload="auto">
-        <!-- Основная ссылка -->
-        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
-        <!-- Запасная ссылка 1 -->
-        <source src="https://www.soundjay.com/misc/sounds/happy-birthday-song.mp3" type="audio/mpeg">
-        <!-- Запасная ссылка 2 -->
-        <source src="https://www.myinstants.com/media/sounds/happy-birthday-song_W0aH2J5.mp3" type="audio/mpeg">
-        Ваш браузер не поддерживает аудио элемент.
-    </audio>
-
     <script>
-        let musicStarted = false;
-        
         document.getElementById('openBtn').addEventListener('click', function() {
             // Показываем поздравление
             document.getElementById('birthdayMessage').classList.remove('hidden');
@@ -404,65 +375,7 @@
             
             // Запускаем выстрел конфетти из всех хлопушек
             shootConfettiFromAllPoppers();
-            
-            // Сразу показываем кнопку для музыки
-            showMusicButton();
-            
-            // Пытаемся автоматически включить музыку
-            tryAutoPlay();
         });
-
-        function tryAutoPlay() {
-            const song = document.getElementById('birthdaySong');
-            song.volume = 0.7;
-            
-            // Пробуем включить музыку
-            const playPromise = song.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    // Успешно!
-                    musicStarted = true;
-                    document.getElementById('audioNotice').innerHTML = '🎵 Музыка играет!';
-                    document.getElementById('audioNotice').style.background = 'rgba(0, 255, 0, 0.2)';
-                }).catch(error => {
-                    // Не удалось автоматически
-                    console.log('Автовоспроизведение заблокировано');
-                    document.getElementById('audioNotice').innerHTML = 
-                        '🔇 Нажмите кнопку "Включить музыку" ниже';
-                });
-            }
-        }
-
-        function showMusicButton() {
-            // Удаляем старую кнопку если есть
-            const oldBtn = document.querySelector('.music-btn');
-            if (oldBtn) oldBtn.remove();
-            
-            const musicBtn = document.createElement('button');
-            musicBtn.textContent = '🎵 Включить музыку';
-            musicBtn.className = 'btn music-btn';
-            musicBtn.style.marginTop = '10px';
-            
-            musicBtn.addEventListener('click', function() {
-                const song = document.getElementById('birthdaySong');
-                song.volume = 0.7;
-                
-                song.play().then(() => {
-                    musicStarted = true;
-                    this.textContent = '🎵 Музыка играет!';
-                    this.disabled = true;
-                    this.style.background = 'linear-gradient(to right, #32cd32, #90ee90)';
-                    document.getElementById('audioNotice').innerHTML = '🎵 Музыка играет!';
-                    document.getElementById('audioNotice').style.background = 'rgba(0, 255, 0, 0.2)';
-                }).catch(error => {
-                    this.textContent = '❌ Не удалось включить';
-                    this.style.background = 'linear-gradient(to right, #ff4757, #ff6b6b)';
-                });
-            });
-            
-            document.querySelector('.card').appendChild(musicBtn);
-        }
 
         function shootConfettiFromAllPoppers() {
             const poppers = document.querySelectorAll('.popper');
@@ -536,12 +449,6 @@
                 }, (duration + delay) * 1000);
             }
         }
-
-        // Предзагрузка аудио при загрузке страницы
-        window.addEventListener('load', function() {
-            const song = document.getElementById('birthdaySong');
-            song.load();
-        });
     </script>
 </body>
-</html>
+    </html>
