@@ -25,11 +25,29 @@
             padding: 20px;
         }
 
+        .from-miron {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 30px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
         .container {
             text-align: center;
             z-index: 10;
             width: 100%;
             max-width: 600px;
+            margin-top: 80px;
         }
 
         h1 {
@@ -49,10 +67,19 @@
             width: 100%;
         }
 
+        .message-container {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         .message {
             font-size: 1.6rem;
             line-height: 1.5;
-            margin-bottom: 25px;
+            min-height: 400px;
         }
 
         .name {
@@ -89,8 +116,33 @@
             transform: translateY(-1px);
         }
 
+        .scroll-indicator {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
         .hidden {
             display: none;
+        }
+
+        /* Стили для скроллбара */
+        .message-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .message-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .message-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .message-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
 
         /* Конфетти */
@@ -225,11 +277,22 @@
 
         /* Адаптивность для мобильных */
         @media (max-width: 480px) {
+            .from-miron {
+                font-size: 2rem;
+                top: 15px;
+                padding: 8px 20px;
+            }
+            
+            .container {
+                margin-top: 70px;
+            }
+            
             h1 { font-size: 1.8rem; }
             .message { font-size: 1.4rem; }
             .name { font-size: 1.7rem; }
             .btn { font-size: 1.2rem; padding: 16px 35px; }
             .card { padding: 25px 15px; }
+            .message-container { height: 250px; }
             
             .popper-stick { height: 60px; }
             .popper-body { 
@@ -249,6 +312,9 @@
     </style>
 </head>
 <body>
+    <!-- Надпись "От Мирона" -->
+    <div class="from-miron">От Мирона</div>
+
     <!-- Хлопушки снизу -->
     <div class="popper" style="left: 10%; bottom: 20px;" data-type="bottom">
         <div class="popper-body">
@@ -350,13 +416,30 @@
         <div class="card fade-in">
             <h1>С Днём Рождения!</h1>
             <button id="openBtn" class="btn">Открыть открытку</button>
-            <div id="birthdayMessage" class="hidden message">
-                Дорогая <span class="name">Елена Александровна</span>!<br><br>
-                От всего сердца поздравляем Вас с Днём Рождения!<br><br>
-                Желаем крепкого здоровья, счастья,<br>
-                благополучия и успехов во всех начинаниях!<br><br>
-                Пусть каждый день приносит радость<br>
-                и исполнение самых заветных желаний!
+            <div id="birthdayMessage" class="hidden">
+                <div class="message-container">
+                    <div class="message">
+                        Дорогая <span class="name">Елена Александровна</span>!<br><br>
+                        От всего сердца поздравляем Вас с Днём Рождения!<br><br>
+                        Желаем крепкого здоровья, счастья,<br>
+                        благополучия и успехов во всех начинаниях!<br><br>
+                        Пусть каждый день приносит радость<br>
+                        и исполнение самых заветных желаний!<br><br>
+                        <br><br>
+                        Пусть Ваша жизнь будет наполнена<br>
+                        яркими моментами и теплыми встречами,<br>
+                        а каждый новый день дарит<br>
+                        вдохновение и новые возможности!<br><br>
+                        <br><br>
+                        Будьте окружены любовью и заботой<br>
+                        близких людей, а работа приносит<br>
+                        удовольствие и достойные результаты!<br><br>
+                        <br><br>
+                        С наилучшими пожеланиями,<br>
+                        Ваши друзья и коллеги!
+                    </div>
+                </div>
+                <div class="scroll-indicator">↕️ Листайте текст вверх и вниз</div>
             </div>
         </div>
         
@@ -449,6 +532,18 @@
                 }, (duration + delay) * 1000);
             }
         }
+
+        // Добавляем обработчики для свайпов на мобильных устройствах
+        let startY = 0;
+        const messageContainer = document.querySelector('.message-container');
+        
+        messageContainer.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+        });
+
+        messageContainer.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        });
     </script>
 </body>
 </html>
