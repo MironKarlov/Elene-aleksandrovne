@@ -65,21 +65,16 @@
             margin-bottom: 25px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             width: 100%;
-        }
-
-        .message-container {
-            height: 300px;
+            max-height: 70vh;
             overflow-y: auto;
-            margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            overflow-x: hidden;
         }
 
         .message {
             font-size: 1.6rem;
             line-height: 1.5;
-            min-height: 400px;
+            min-height: 500px;
+            padding: 10px;
         }
 
         .name {
@@ -126,22 +121,23 @@
             display: none;
         }
 
-        /* Стили для скроллбара */
-        .message-container::-webkit-scrollbar {
-            width: 8px;
+        /* Стили для скроллбара всей карточки */
+        .card::-webkit-scrollbar {
+            width: 10px;
         }
 
-        .message-container::-webkit-scrollbar-track {
+        .card::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
+            margin: 5px;
         }
 
-        .message-container::-webkit-scrollbar-thumb {
+        .card::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.3);
             border-radius: 4px;
         }
 
-        .message-container::-webkit-scrollbar-thumb:hover {
+        .card::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.5);
         }
 
@@ -291,8 +287,10 @@
             .message { font-size: 1.4rem; }
             .name { font-size: 1.7rem; }
             .btn { font-size: 1.2rem; padding: 16px 35px; }
-            .card { padding: 25px 15px; }
-            .message-container { height: 250px; }
+            .card { 
+                padding: 25px 15px;
+                max-height: 60vh;
+            }
             
             .popper-stick { height: 60px; }
             .popper-body { 
@@ -417,27 +415,31 @@
             <h1>С Днём Рождения!</h1>
             <button id="openBtn" class="btn">Открыть открытку</button>
             <div id="birthdayMessage" class="hidden">
-                <div class="message-container">
-                    <div class="message">
-                        Дорогая <span class="name">Елена Александровна</span>!<br><br>
-                        От всего сердца поздравляем Вас с Днём Рождения!<br><br>
-                        Желаем крепкого здоровья, счастья,<br>
-                        благополучия и успехов во всех начинаниях!<br><br>
-                        Пусть каждый день приносит радость<br>
-                        и исполнение самых заветных желаний!<br><br>
-                        <br><br>
-                        Пусть Ваша жизнь будет наполнена<br>
-                        яркими моментами и теплыми встречами,<br>
-                        а каждый новый день дарит<br>
-                        вдохновение и новые возможности!<br><br>
-                        <br><br>
-                        Будьте окружены любовью и заботой<br>
-                        близких людей, а работа приносит<br>
-                        удовольствие и достойные результаты!<br><br>
-                        <br><br>
-                        С наилучшими пожеланиями,<br>
-                        Ваши друзья и коллеги!
-                    </div>
+                <div class="message">
+                    Дорогая <span class="name">Елена Александровна</span>!<br><br>
+                    От всего сердца поздравляем Вас с Днём Рождения!<br><br>
+                    Желаем крепкого здоровья, счастья,<br>
+                    благополучия и успехов во всех начинаниях!<br><br>
+                    Пусть каждый день приносит радость<br>
+                    и исполнение самых заветных желаний!<br><br>
+                    <br><br>
+                    Пусть Ваша жизнь будет наполнена<br>
+                    яркими моментами и теплыми встречами,<br>
+                    а каждый новый день дарит<br>
+                    вдохновение и новые возможности!<br><br>
+                    <br><br>
+                    Будьте окружены любовью и заботой<br>
+                    близких людей, а работа приносит<br>
+                    удовольствие и достойные результаты!<br><br>
+                    <br><br>
+                    Пусть каждый рассвет приносит новые надежды,<br>
+                    а каждый закат оставляет приятные воспоминания!<br><br>
+                    <br><br>
+                    Пусть Ваше сердце всегда будет наполнено<br>
+                    теплом и радостью, а душа - светом и гармонией!<br><br>
+                    <br><br>
+                    С наилучшими пожеланиями,<br>
+                    Ваши друзья и коллеги!
                 </div>
                 <div class="scroll-indicator">↕️ Листайте текст вверх и вниз</div>
             </div>
@@ -533,15 +535,15 @@
             }
         }
 
-        // Добавляем обработчики для свайпов на мобильных устройствах
+        // Добавляем обработчики для свайпов по всей карточке
         let startY = 0;
-        const messageContainer = document.querySelector('.message-container');
+        const card = document.querySelector('.card');
         
-        messageContainer.addEventListener('touchstart', function(e) {
+        card.addEventListener('touchstart', function(e) {
             startY = e.touches[0].clientY;
         });
 
-        messageContainer.addEventListener('touchmove', function(e) {
+        card.addEventListener('touchmove', function(e) {
             e.preventDefault();
         });
     </script>
